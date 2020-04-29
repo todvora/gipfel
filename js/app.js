@@ -109,7 +109,7 @@ var app = new Vue({
                         color: known ? 'rgba(78,255,118,0.29)' : 'rgba(255,0,0,1)'
                     });
 
-                    marker.bindPopup(`${feature.attributes.FEAT_NAME}, ${elevation}m`);
+                    marker.bindPopup(`${feature.attributes.FEAT_NAME}, ${elevation}m, OGD Salzburg`);
                     return marker;
                 });
 
@@ -136,7 +136,7 @@ var app = new Vue({
                     radius:4,
                     color:'rgba(40,167,255,0.31)'
                 });
-                marker.bindPopup(`${element.tags.name}, ${element.tags.ele}m`);
+                marker.bindPopup(`${element.tags.name}, ${element.tags.ele}m; OSM`);
                 return marker;
             });
             const layer = L.featureGroup(markers);
