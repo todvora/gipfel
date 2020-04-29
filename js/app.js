@@ -109,7 +109,7 @@ var app = new Vue({
                         color: known ? 'rgba(78,255,118,0.29)' : 'rgba(255,0,0,1)'
                     });
 
-                    marker.bindPopup(`${feature.attributes.FEAT_NAME}, ${elevation}m, (${geohash})`);
+                    marker.bindPopup(`${feature.attributes.FEAT_NAME}, ${elevation}m`);
                     return marker;
                 });
 
