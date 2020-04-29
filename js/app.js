@@ -45,7 +45,7 @@ var app = new Vue({
             const mapLink = '<a href="http://www.esri.com/">Esri</a>';
             const wholink = 'i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
 
-            this.leaflet.tileLayers.satellite = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            this.leaflet.tileLayers.satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
                 attribution: '&copy; '+mapLink+', '+wholink,
             });
 
