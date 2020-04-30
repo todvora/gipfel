@@ -20,7 +20,8 @@ var app = new Vue({
             selectedTileLayer: null,
             map: null,
             zoom: 12,
-            boundingBox: null
+            boundingBox: null,
+            geohashLayer: null
         },
         processed: {
             osmKnown: {}, // geohash->point
@@ -29,6 +30,22 @@ var app = new Vue({
     },
     computed: {},
     methods: {
+        renderGeohashes: function(lat, lon) {
+
+            if(this.leaflet.geohashLayer != null) {
+                this.leaflet.geohashLayer.remove(this.leaflet.map);
+            }
+
+            const geohash = Geohash.encode(lat, lon, 7);
+            const neighbours = Geohash.neighbours(geohash);
+            const neighboursArr = Object.keys(neighbours).map(n => neighbours[n]);
+            neighboursArr.push(geohash);
+
+            const rectangles = neighboursArr.map(gh => Geohash.bounds(gh)).map(bounds => L.rectangle([[bounds.sw.lat, bounds.sw.lon], [bounds.ne.lat, bounds.ne.lon]], {color: "rgba(255,120,0,0.5)", weight: 1, interactive:false}));
+            this.leaflet.geohashLayer = L.featureGroup(rectangles);
+            this.leaflet.geohashLayer.addTo(this.leaflet.map);
+
+        },
         selectTileLayer: function(layerName) {
           this.leaflet.selectedTileLayer = layerName;
         },
@@ -106,10 +123,14 @@ var app = new Vue({
 
                     const marker = L.circleMarker(coordinates, {
                         radius:4,
-                        color: known ? 'rgba(78,255,118,0.29)' : 'rgba(255,0,0,1)'
+                        color: known ? 'rgba(78,255,118,0.5)' : 'rgba(255,0,0,1)'
                     });
 
-                    marker.bindPopup(`${feature.attributes.FEAT_NAME}, ${elevation}m, OGD Salzburg`);
+                    marker.on('mouseover', (ev) => {
+                        this.renderGeohashes(coordinates.lat, coordinates.lng);
+                    });
+
+                    marker.bindPopup(`${feature.attributes.FEAT_NAME}, ${elevation}m, OGD Salzburg #${feature.attributes.OBJECTID}`);
                     return marker;
                 });
 
@@ -134,9 +155,9 @@ var app = new Vue({
             const markers = this.overpassData.elements.map(element => {
                 const marker = L.circleMarker([element.lat, element.lon], {
                     radius:4,
-                    color:'rgba(40,167,255,0.31)'
+                    color:'rgba(40,167,255,0.5)'
                 });
-                marker.bindPopup(`${element.tags.name}, ${element.tags.ele}m; OSM`);
+                marker.bindPopup(`${element.tags.name}, ${element.tags.ele}m; OSM #<a href="https://www.openstreetmap.org/node/${element.id}">${element.id}</a>`);
                 return marker;
             });
             const layer = L.featureGroup(markers);
