@@ -9,11 +9,19 @@ This tool tries to compare two peak/saddle datasets:
 * Open data from OGD Salzburg: https://service.salzburg.gv.at/ogd/client/showDetail/359c515c-4320-42ef-b4e5-88ba1bb03c2e
 * Peak/saddle data from OpenStreetMap project, obtained via Overpass API: https://overpass-turbo.eu/s/Ts6
 
+
 ## Goal
 My initial goal of this project is to extend the OSM dataset by peaks
 available from the OGD Salzburg dataset. I want to identify such peaks that have 
 * No close match in the OSM data
 * Defined name and altitude in the OGD dataset
+
+
+![Red peaks are missing in OSM](map.png)
+
+Blue dots are OSM data. Green dots are ODG peaks that have corresponding (close) OSM peek. 
+Finally, red peaks are those from ODG that have no OSM entries. These should be examined 
+and added to OpenStreetMap.
 
 ## ODG Salzburg coordinates system 
 The GeoJSON from ODG uses *esriGeometryPoint* datatypes with `wkid:31258`. This defines
