@@ -74,6 +74,7 @@ var app = new Vue({
 
             this.leaflet.selectedTileLayer = 'map';
 
+            L.control.scale().addTo(this.leaflet.map);
 
         },
         loadData: function () {
