@@ -23,6 +23,7 @@ var app = new Vue({
             boundingBox: null,
             geohashLayer: null
         },
+        geohashLevel: 7,
         processed: {
             osmKnown: {}, // geohash->point
             salzburg: [],
@@ -36,7 +37,7 @@ var app = new Vue({
                 this.leaflet.geohashLayer.remove(this.leaflet.map);
             }
 
-            const geohash = Geohash.encode(lat, lon, 7);
+            const geohash = Geohash.encode(lat, lon, this.geohashLevel);
             const neighbours = Geohash.neighbours(geohash);
             const neighboursArr = Object.keys(neighbours).map(n => neighbours[n]);
             neighboursArr.push(geohash);
@@ -119,7 +120,7 @@ var app = new Vue({
                     const elevation = feature.attributes.HOEHE;
                     const coordinates = this.convert(feature.geometry);
 
-                    const geohash = Geohash.encode(coordinates.lat, coordinates.lng, 7);
+                    const geohash = Geohash.encode(coordinates.lat, coordinates.lng, this.geohashLevel);
                     const known = this.processed.osmKnown[geohash];
 
                     const marker = L.circleMarker(coordinates, {
@@ -145,7 +146,7 @@ var app = new Vue({
         },
         'overpassData': function () {
             this.overpassData.elements.forEach(element => {
-                const geohash = Geohash.encode(element.lat, element.lon, 7);
+                const geohash = Geohash.encode(element.lat, element.lon, this.geohashLevel);
                 const neighbours = Geohash.neighbours(geohash);
                 const neighboursArr = Object.keys(neighbours).map(n => neighbours[n]);
                 neighboursArr.push(geohash);
