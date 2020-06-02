@@ -17,8 +17,28 @@
 
 <body>
 <div id="app">
+    <div id="loader" v-if="loading">Loading datasets...</div>
     <div id="navigation">
-            <a href="#" v-for="(value, name) in leaflet.tileLayers" v-on:click.prevent="selectTileLayer(name)" style="display: block">{{name}}</a>
+            Map layer:
+            <ul>
+                <li v-for="(value, name) in leaflet.tileLayers">
+                    <a href="#" v-on:click.prevent="selectTileLayer(name)" style="display: block">{{name}}</a>
+                </li>
+            </ul>
+            Markers:
+                <ul>
+                    <li><span style="color: rgba(40,167,255,1)">●</span> OSM only (Overpass)</li>
+                    <li><span style="color: rgba(255,0,0,1)">●</span> OGD Salzburg only</li>
+                    <li><span style="color: rgba(78,255,118,1)">●</span> Both datasets</li>
+                </ul>
+            Data:
+                <ul>
+                    <li><a href="https://overpass-turbo.eu/s/Ts6">OSM via Overpass Turbo</a></li>
+                    <li><a href="https://service.salzburg.gv.at/ogd/client/showDetail/359c515c-4320-42ef-b4e5-88ba1bb03c2e">OGD Salzburg</a></li>
+                    <li><a href="https://github.com/todvora/gipfel#gipfel-comparison-tool">Project information</a></li>
+                </ul>
+
+
     </div>
     <div id="mapid"></div>
 </div>

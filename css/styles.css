@@ -24,6 +24,20 @@ html, body, #app, #mapid {
     background-color: #f4f4f4d4;
 }
 
+#loader {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    z-index: 9999;
+    padding: 20px;
+    border-radius: 2px;
+    background-color: #f4f4f4d4;
+    text-align: center;
+}
+
 #elevation {
     position: absolute;
     bottom: 0;
@@ -31,4 +45,12 @@ html, body, #app, #mapid {
     width: 100%;
     height: 320px;
     z-index: 9999;
+}
+
+ul {
+    padding: 0 1em;
+}
+
+ul li {
+    list-style-type: none;
 }

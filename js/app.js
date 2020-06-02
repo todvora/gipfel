@@ -29,7 +29,11 @@ var app = new Vue({
             salzburg: [],
         }
     },
-    computed: {},
+    computed: {
+        loading: function () {
+            return !(this.overpassData !== null && this.data !== null);
+        }
+    },
     methods: {
         renderGeohashes: function(lat, lon) {
 
