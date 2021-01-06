@@ -136,7 +136,12 @@ var app = new Vue({
                         this.renderGeohashes(coordinates.lat, coordinates.lng);
                     });
 
-                    marker.bindPopup(`${feature.attributes.FEAT_NAME}, ${elevation}m, OGD Salzburg #${feature.attributes.OBJECTID}`);
+                    marker.on('click', (ev) => {
+                        L.popup()
+                            .setLatLng(coordinates)
+                            .setContent(`${feature.attributes.FEAT_NAME}, ${feature.attributes.HOEHE}m, OGD Salzburg #${feature.attributes.OBJECTID}`)
+                            .openOn(this.leaflet.map);
+                    });
                     return marker;
                 });
 
@@ -163,7 +168,12 @@ var app = new Vue({
                     radius:4,
                     color:'rgba(40,167,255,0.5)'
                 });
-                marker.bindPopup(`${element.tags.name}, ${element.tags.ele}m; OSM #<a href="https://www.openstreetmap.org/node/${element.id}">${element.id}</a>`);
+                marker.on('click', (ev) => {
+                    L.popup()
+                        .setLatLng([element.lat, element.lon])
+                        .setContent(`${element.tags.name}${element.tags.ele ? ', ' + element.tags.ele + 'm':''}; OSM #<a href="https://www.openstreetmap.org/node/${element.id}">${element.id}</a>`)
+                        .openOn(this.leaflet.map);
+                });
                 return marker;
             });
             const layer = L.featureGroup(markers);
