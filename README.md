@@ -1,7 +1,7 @@
 # Gipfel comparison tool
 
 ***************
-[Open the APP in browser](https://github.com/todvora/gipfel)
+[Open the APP in browser](https://www.tomas-dvorak.cz/gipfel/)
 ***************
 
 This tool tries to compare two peak/saddle datasets:
